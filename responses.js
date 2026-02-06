@@ -1,9 +1,23 @@
 import { InteractionResponseType, MessageComponentTypes } from "discord-interactions";
 
-export function simpleTextResponese(content) {
+export function simpleTextResponese(content, type = InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE) {
   return {
-    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+    type: type,
     data: { content: content },
+  };
+}
+
+export function ephemeralTextResponese(content, type = InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE) {
+  return {
+    type: type,
+    data: { flags: 1 << 6, content: content },
+  };
+}
+
+export function componentsResponese(data, type = InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE) {
+  return {
+    type: type,
+    data: data,
   };
 }
 

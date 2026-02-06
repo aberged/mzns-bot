@@ -12,6 +12,7 @@ import { qr } from './interactions/qr/qr.js';
 import { QR, TASK, TEMA } from './commands.js';
 import { TASK_MODAL_PREFIX } from './responses.js';
 import { tema } from './interactions/tema/tema.js';
+import { handleWelcomeRoleSelection, welcome, WELCOME_ROLE_SELECT_ID } from './welcome/welcome.js';
 
 // Create an express app
 const app = express();
@@ -19,10 +20,15 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 // Create a new discord.js client instance
-export const client = new Client({ intents: [GatewayIntentBits.GuildMessages] });
+export const client = new Client({ intents: [
+  GatewayIntentBits.GuildMessages, 
+  GatewayIntentBits.Guilds,
+  GatewayIntentBits.GuildMembers
+]});
 // When the client is ready, run this code (only once).
 client.once(Events.ClientReady, (readyClient) => {
 	console.log(`discord.js client is ready! Logged in as ${readyClient.user.tag}`);
+  welcome();
 });
 // Log in to Discord with client's token
 client.login(process.env.DISCORD_TOKEN);
@@ -60,6 +66,16 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
           return tema(req, res);
       }
       break;
+    /**
+     * Handle component interactions
+     */
+    case InteractionType.MESSAGE_COMPONENT:
+      console.log('Received message component interaction with customId:', data.custom_id);
+      if (data && data.custom_id.startsWith(WELCOME_ROLE_SELECT_ID)) {
+        return handleWelcomeRoleSelection(req, res);
+      }
+
+      return res.status(400).json({ error: 'Unknown message component interaction' });
     /**
      * Handle modal submissions
      */
