@@ -11,11 +11,12 @@ export function welcome() {
     const channel = member.guild.channels.cache.get('1466011115736662201');
     if (!channel) return;
   
-    // 1. Create a Buffer object from the Base64 string, specifying the input encoding
+    // 1. Base64 string from environment variable, which contains the encoded JSON array of role options for welcome message
     const bufferObject = Buffer.from(process.env.ROLE_LIST || 'W10=', 'base64');
-    // 2. Convert the Buffer to a human-readable string, specifying the desired output encoding (e.g., 'utf-8')
+    // 2. Convert the Buffer to a human-readable string
     // decoded string is a json array [{"label": "role label", "value": "role id"}, ...]
     const decodedString = bufferObject.toString('utf-8');
+    // 3. Parse the JSON string to get the array of role options
     const options = JSON.parse(decodedString);
 
     const embed = new EmbedBuilder()
@@ -75,7 +76,7 @@ export async function handleWelcomeRoleSelection(req, res) {
   } catch (err) {
     console.error('Error assigning roles:', err);
     return res.send(
-      simpleTextResponese(`${ICON_BUG} [error] Pošlo po zlu: ${err.message || err}`)
+      ephemeralTextResponese(`${ICON_BUG} [error] Pošlo po zlu: ${err.message || err}`)
     );
   }
 }

@@ -1,14 +1,14 @@
-import { ICON_BUG, ICON_SUCCESS, taskCommandIcons } from '../../commands.js';
-import { simpleTextResponese } from '../../responses.js';
+import { ICON_BUG, ICON_SUCCESS } from '../../commands.js';
+import { ephemeralTextResponese } from '../../responses.js';
 import { DiscordRequest } from '../../utils.js';
 
 
 
 export async function taskRequestModalHandler(req, res) {
-  // Interaction id, type, data, channel and member/user info
+  // get data, channel and member/user info from interaction payload
   const { data, channel, member } = req.body;
 
-  // get custom_id of modal
+  // get modal custom_id
   const modalId = data.custom_id;
   // get user ID of member who filled out modal
   const userId = member.user.id;
@@ -51,7 +51,7 @@ export async function taskRequestModalHandler(req, res) {
       const messageEndpoint = `channels/${threadRes.id}/messages`;
       await DiscordRequest(messageEndpoint, {
         method: 'POST', body: {
-          content: `Assigned to: ${mentions}`
+          content: `${ICON_SUCCESS} [status][created]\nAssigned to: ${mentions}\nby <@${userId}>`
         }
       });
     }
@@ -59,10 +59,10 @@ export async function taskRequestModalHandler(req, res) {
   } catch (err) {
     console.error(`[error] creating thread/task [userId:${userId}, task: ${taskCommand + ' ' + taskName}] - `, err);
     return res.send(
-      simpleTextResponese(`${ICON_BUG} [error] Pošlo po zlu: ${err.message || err}`)
+      ephemeralTextResponese(`${ICON_BUG} [error] Pošlo po zlu: ${err.message || err}`)
     );
   }
   return res.send(
-    simpleTextResponese(`${ICON_SUCCESS} [status][${taskCommandIcons[taskCommand] || 'unknown'}] ${taskCommand + ' ' + taskName} 👆`)
+    ephemeralTextResponese(`${ICON_SUCCESS} ${taskCommand + ' ' + taskName} 👆`)
   );
 }

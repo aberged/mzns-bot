@@ -1,5 +1,5 @@
 import { ICON_SUCCESS, ICON_WARNING } from '../../commands.js';
-import { simpleTextResponese } from '../../responses.js';
+import { ephemeralTextResponese } from '../../responses.js';
 import { DiscordRequest } from '../../utils.js';
 
 export async function tema(req, res) {
@@ -14,7 +14,7 @@ export async function tema(req, res) {
 
   if (channel.thread_metadata) {
     return res.send(
-      simpleTextResponese(`${ICON_WARNING} Teme se mogu otvoriti samo u kanalima, ne i tredovima.`)
+      ephemeralTextResponese(`${ICON_WARNING} Teme se mogu otvoriti samo u kanalima, ne i tredovima.`)
     );
   }
   //create thread/tema with the given name
@@ -34,10 +34,10 @@ export async function tema(req, res) {
   } catch (err) {
     console.error(`[error] creating tema [userId:${userId}, tema: ${temaName}] - `, err);
     return res.send(
-      simpleTextResponese(`${ICON_BUG} [error] Pošlo po zlu: ${err.message || err}`)
+      ephemeralTextResponese(`${ICON_BUG} [error] Pošlo po zlu: ${err.message || err}`)
     );
   }
   return res.send(
-    simpleTextResponese(`${ICON_SUCCESS} [tema][new] ${TEMA_ICON + ' ' + temaName} 👇`)
+    ephemeralTextResponese(`${ICON_SUCCESS} [tema][new] ${TEMA_ICON + ' ' + temaName} 👇`)
   );
 }

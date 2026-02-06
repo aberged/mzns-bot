@@ -51,9 +51,9 @@ export function requestTaskModal(taskCommand) {
             type: MessageComponentTypes.ROLE_SELECT,
             custom_id: 'my_role_select',
             label: 'Assign role(s)',
-            min_values: 0,
+            min_values: 1,
             max_values: 10,
-            required: false,
+            required: true,
           }
         },
         {

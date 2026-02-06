@@ -1,5 +1,5 @@
 import { ICON_BUG, ICON_INFO, ICON_SUCCESS, ICON_WARNING, taskCommandChoices, taskCommandIcons, TEMA_ICON } from '../../commands.js';
-import { requestTaskModal, simpleTextResponese } from '../../responses.js';
+import { ephemeralTextResponese, requestTaskModal, simpleTextResponese } from '../../responses.js';
 import { DiscordRequest } from '../../utils.js';
 
 export async function taskCommandHandler(req, res) {
@@ -24,19 +24,19 @@ export async function taskCommandHandler(req, res) {
     }
     // For other choices, inform user that status can be changed only in threads
     return res.send(
-      simpleTextResponese(`${ICON_WARNING} Status taskova se može menjati samo u tredovima(taskovima), ne i kanalima (kanali su skupovi tredova, tredovi su taskovi)! \n${ICON_INFO} Probaj "/task status:🟡 Request" ako želiš da kreiraš novi task.`)
+      ephemeralTextResponese(`${ICON_WARNING} Status taskova se može menjati samo u tredovima(taskovima), ne i kanalima (kanali su skupovi tredova, tredovi su taskovi)! \n${ICON_INFO} ako želiš da kreiraš novi task probaj \`/task do 🟡 Request\``)
     );
   }
   // No task requests inside threads/tasks
   if (taskCommand === taskCommandChoices[0].value) {
     return res.send(
-      simpleTextResponese(`${ICON_WARNING} Kreiranje novih taskova nije moguće u tredovima, samo u kanalima (kanali su skupovi tredova, tredovi su taskovi)!`)
+      ephemeralTextResponese(`${ICON_WARNING} Kreiranje novih taskova nije moguće u tredovima, samo u kanalima (kanali su skupovi tredova, tredovi su taskovi)!\n${ICON_INFO} Ako želiš da kreiraš novi task probaj \`/task do 🟡 Request\` u <#${channel.parent_id}> ili nekom drugom kanalu.`)
     );
   }
   // no task operations inside tema threads
   if (channel.name.startsWith(TEMA_ICON)) {
     return res.send(
-      simpleTextResponese(`${ICON_WARNING} Menjanje statusa taskova nije moguće unutar tema.`)
+      ephemeralTextResponese(`${ICON_WARNING} Menjanje statusa taskova nije moguće unutar tema.`)
     );
   }
 
@@ -50,10 +50,10 @@ export async function taskCommandHandler(req, res) {
   } catch (err) {
     console.error('Error updating channel name:', err);
     return res.send(
-      simpleTextResponese(`${ICON_BUG} [error] Pošlo po zlu: ${err.message || err}`)
+      ephemeralTextResponese(`${ICON_BUG} [error] Pošlo po zlu: ${err.message || err}`)
     );
   }
   return res.send(
-    simpleTextResponese(`${ICON_SUCCESS} [status][${taskCommandIcons[taskCommand] || 'unknown'}] ${taskCommand + ' ' + taskName}`)
+    simpleTextResponese(`${ICON_SUCCESS} [status][${taskCommandIcons[taskCommand] || 'unknown'}] ${taskCommand}`)
   );
 }
