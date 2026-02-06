@@ -31,7 +31,7 @@ export function welcome() {
         .setCustomId(`${WELCOME_ROLE_SELECT_ID}:${member.user.id}`)
         .setPlaceholder('Izaberi role')
         .setMinValues(1)
-        .setMaxValues(3)
+        .setMaxValues(15)
         .addOptions(JSON.parse(decodedString))
     );
   
