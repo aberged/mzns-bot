@@ -11,6 +11,13 @@ export function welcome() {
     const channel = member.guild.channels.cache.get('1466011115736662201');
     if (!channel) return;
   
+    // 1. Create a Buffer object from the Base64 string, specifying the input encoding
+    const bufferObject = Buffer.from(process.env.ROLE_LIST || 'W10=', 'base64');
+    // 2. Convert the Buffer to a human-readable string, specifying the desired output encoding (e.g., 'utf-8')
+    // decoded string is a json array [{"label": "role label", "value": "role id"}, ...]
+    const decodedString = bufferObject.toString('utf-8');
+    const options = JSON.parse(decodedString);
+
     const embed = new EmbedBuilder()
       .setColor(0x5865F2)
       .setTitle(`👋 Dobrodošao/la u MZNS!`)
@@ -20,19 +27,14 @@ export function welcome() {
       .setThumbnail(member.user.displayAvatarURL())
       .setFooter({ text: member.guild.name });
   
-    // 1. Create a Buffer object from the Base64 string, specifying the input encoding
-    const bufferObject = Buffer.from(process.env.ROLE_LIST || 'W10=', 'base64');
-    // 2. Convert the Buffer to a human-readable string, specifying the desired output encoding (e.g., 'utf-8')
-    // decoded string is a json array [{"label": "role label", "value": "role id"}, ...]
-    const decodedString = bufferObject.toString('utf-8');
 
     const rolesRow = new ActionRowBuilder().addComponents(
       new StringSelectMenuBuilder()
         .setCustomId(`${WELCOME_ROLE_SELECT_ID}:${member.user.id}`)
         .setPlaceholder('Izaberi role')
-        .setMinValues(1)
-        .setMaxValues(15)
-        .addOptions(JSON.parse(decodedString))
+        .setMinValues(options.length > 0 ? 1 : 0)
+        .setMaxValues(options.length)
+        .addOptions(options)
     );
   
     await channel.send({
