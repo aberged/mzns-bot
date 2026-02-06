@@ -1,4 +1,4 @@
-import { ICON_BUG, ICON_SUCCESS, ICON_WARNING, taskCommandChoices, taskCommandIcons, TEMA_ICON } from '../../commands.js';
+import { ICON_BUG, ICON_INFO, ICON_SUCCESS, ICON_WARNING, taskCommandChoices, taskCommandIcons, TEMA_ICON } from '../../commands.js';
 import { requestTaskModal, simpleTextResponese } from '../../responses.js';
 import { DiscordRequest } from '../../utils.js';
 
