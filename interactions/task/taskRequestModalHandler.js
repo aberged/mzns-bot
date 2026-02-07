@@ -2,8 +2,6 @@ import { ICON_BUG, ICON_SUCCESS } from '../../commands.js';
 import { ephemeralTextResponese } from '../../responses.js';
 import { DiscordRequest } from '../../utils.js';
 
-
-
 export async function taskRequestModalHandler(req, res) {
   // get data, channel and member/user info from interaction payload
   const { data, channel, member } = req.body;

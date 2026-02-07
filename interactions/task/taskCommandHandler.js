@@ -24,7 +24,7 @@ export async function taskCommandHandler(req, res) {
     }
     // For other choices, inform user that status can be changed only in threads
     return res.send(
-      ephemeralTextResponese(`${ICON_WARNING} Status taskova se može menjati samo u tredovima(taskovima), ne i kanalima (kanali su skupovi tredova, tredovi su taskovi)! \n${ICON_INFO} ako želiš da kreiraš novi task probaj \`/task do 🟡 Request\``)
+      ephemeralTextResponese(`${ICON_WARNING} Status taskova se može menjati samo u tredovima(taskovima), ne i kanalima (kanali su skupovi tredova, tredovi su taskovi)! \n${ICON_INFO} Ako želiš da kreiraš novi task probaj \`/task do 🟡 Request\``)
     );
   }
   // No task requests inside threads/tasks

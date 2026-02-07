@@ -13,19 +13,19 @@ Primer:<br>
 `🔵Task1` je task/tred sa statusom `🔵 Refined`
 
 Koristi se pozivanjem bota: `/task [komanda]` gde komanda može biti:<br>
-![](https://storage.googleapis.com/frbs/Screenshot%202026-01-31%20201429.png)
+![](https://storage.googleapis.com/frbs/Screenshot%202026-01-31%20201429.png)<br>
 
 - **🟡 Request** - Kreira novi task ako se pokrene iz kanala, a postavlja status taska ako se pokrene iz taska. <br>
-Prilikom kreiranja novog taska potrebno je popuniti [dijalog](https://discord.com/developers/docs/components/using-modal-components) nazivom taska i (po potrebi) *rolama* i/ili *korisnicima* koje je porebno obavestiti.
-![](https://storage.googleapis.com/frbs/Screenshot%202026-01-31%20202736.png)
-Klikom na "Submit" bot će kreirati task i u njemu takogavti odabrane *role* i/ili *korisnike* (ukoliko su odabrani u prethodnom koraku) i ostaviti ***info log*** poruku o kreiranom tasku.
+Prilikom kreiranja novog taska potrebno je popuniti [dijalog](https://discord.com/developers/docs/components/using-modal-components) nazivom taska i (po potrebi) *rolama* i/ili *korisnicima* koje je porebno obavestiti.<br>
+![](https://storage.googleapis.com/frbs/Screenshot%202026-01-31%20202736.png)<br>
+Klikom na "Submit" bot će kreirati task i u njemu takogavti odabrane *role* i/ili *korisnike* (ukoliko su odabrani u prethodnom koraku) i ostaviti ***info log*** poruku o kreiranom tasku.<br>
 ![](https://storage.googleapis.com/frbs/Screenshot%202026-01-31%20232017.png)
 <br>
-- **🔵 Refined** - Postavlja status taska i ostavlja ***info log*** poruku o promenjenom statusu.
-![](https://storage.googleapis.com/frbs/Screenshot%202026-01-31%20232721.png)
-- **🟠 In Production** - Postavlja status taska  i ostavlja ***info log*** poruku o promenjenom statusu.
-- **🔴 Review** - Postavlja status taska i ostavlja ***info log*** poruku o promenjenom statusu.
-- **🟣 Scheduled** - Postavlja status taska i ostavlja ***info log*** poruku o promenjenom statusu.
+- **🔵 Refined** - Postavlja status taska i ostavlja ***info log*** poruku o promenjenom statusu.<br>
+![](https://storage.googleapis.com/frbs/Screenshot%202026-01-31%20232721.png)<br>
+- **🟠 In Production** - Postavlja status taska  i ostavlja ***info log*** poruku o promenjenom statusu.<br>
+- **🔴 Review** - Postavlja status taska i ostavlja ***info log*** poruku o promenjenom statusu.<br>
+- **🟣 Scheduled** - Postavlja status taska i ostavlja ***info log*** poruku o promenjenom statusu.<br>
 - **🟢 Published** - Postavlja status taska i ostavlja ***info log*** poruku o promenjenom statusu.<br>
 
 -----------------------------------------
@@ -39,25 +39,25 @@ Klikom na "Submit" bot će kreirati task i u njemu takogavti odabrane *role* i/i
 
 
 <br>Pretraga je izvodljiva po različitim kriterijumima: **`from:`, `in:`, `has:`, `mentions:`, `pinned:`, `before:`, `during:`, `after:`** :<br>
-![](https://storage.googleapis.com/frbs/Screenshot%202026-02-01%20214105.png)
+![](https://storage.googleapis.com/frbs/Screenshot%202026-02-01%20214105.png)<br>
 
 **Kombinavanjem tih kriterijuma Discord može imati ulogu browsera ili galerije sadržaja koji tražimo.**
 
 U sličaju `has: image` može poslužiti kao galerija fotigrafija sa svih kanala iz svih kategorija:<br>
-![](https://storage.googleapis.com/frbs/Screenshot%202026-02-01%20215611.png)
+![](https://storage.googleapis.com/frbs/Screenshot%202026-02-01%20215611.png)<br>
 
 U sličaju `has: poll` može poslužiti kao pregled glasanja sa svih kanala iz svih kategorija :<br>
-![](https://storage.googleapis.com/frbs/Screenshot%202026-02-01%20215406.png)
+![](https://storage.googleapis.com/frbs/Screenshot%202026-02-01%20215406.png)<br>
 
 U sličaju `has: image` `in: arhiva-foto-video` može poslužiti kao galerija samo iz kanala `#arhiva-foto-video`:<br>
-![](https://storage.googleapis.com/frbs/Screenshot%202026-02-01%20220130.png)
+![](https://storage.googleapis.com/frbs/Screenshot%202026-02-01%20220130.png)<br>
 
 Za još detaljniju pretragu postoji Filters dugme koje otvara dijalog sa svim opcijama za pretragu:<br>
-![](https://storage.googleapis.com/frbs/Screenshot%202026-02-01%20220901.png)
-![](https://storage.googleapis.com/frbs/Screenshot%202026-02-01%20220552.png)
+![](https://storage.googleapis.com/frbs/Screenshot%202026-02-01%20220901.png)<br>
+![](https://storage.googleapis.com/frbs/Screenshot%202026-02-01%20220552.png)<br>
 
 **Info log** olakšava tekstualnu pretragu koja daje hronološki niz promene statusa taskova. Npr:<br>
-![](https://storage.googleapis.com/frbs/Screenshot%202026-02-01%20002254.png)
+![](https://storage.googleapis.com/frbs/Screenshot%202026-02-01%20002254.png)<br>
 
 </details>
 <details>
