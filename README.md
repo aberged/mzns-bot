@@ -19,8 +19,7 @@ Koristi se pozivanjem bota: `/task [komanda]` gde komanda može biti:<br>
 Prilikom kreiranja novog taska potrebno je popuniti [dijalog](https://discord.com/developers/docs/components/using-modal-components) nazivom taska i (po potrebi) *rolama* i/ili *korisnicima* koje je porebno obavestiti.<br>
 ![](https://storage.googleapis.com/frbs/Screenshot%202026-01-31%20202736.png)<br>
 Klikom na "Submit" bot će kreirati task i u njemu takogavti odabrane *role* i/ili *korisnike* (ukoliko su odabrani u prethodnom koraku) i ostaviti ***info log*** poruku o kreiranom tasku.<br>
-![](https://storage.googleapis.com/frbs/Screenshot%202026-01-31%20232017.png)
-<br>
+![](https://storage.googleapis.com/frbs/Screenshot%202026-01-31%20232017.png)<br>
 - **🔵 Refined** - Postavlja status taska i ostavlja ***info log*** poruku o promenjenom statusu.<br>
 ![](https://storage.googleapis.com/frbs/Screenshot%202026-01-31%20232721.png)<br>
 - **🟠 In Production** - Postavlja status taska  i ostavlja ***info log*** poruku o promenjenom statusu.<br>
