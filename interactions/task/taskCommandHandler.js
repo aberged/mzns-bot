@@ -1,4 +1,4 @@
-import { ICON_BUG, ICON_INFO, ICON_SUCCESS, ICON_WARNING, taskCommandChoices, taskCommandIcons, TEMA_ICON } from '../../commands.js';
+import { ICON_BUG, ICON_INFO, ICON_SUCCESS, ICON_WARNING, TASK_CLOSE_COMMAND, TASK_REQUEST_COMMAND, taskCommandIcons, TEMA_ICON } from '../../commands.js';
 import { ephemeralTextResponese, requestTaskModal, simpleTextResponese } from '../../responses.js';
 import { DiscordRequest } from '../../utils.js';
 
@@ -17,7 +17,7 @@ export async function taskCommandHandler(req, res) {
   // Check if it's NOT a thread channel
   if (!channel.thread_metadata) {
     // Send a modal as response if the choice is "Request"
-    if (taskCommand === taskCommandChoices[0].value) {
+    if (taskCommand === TASK_REQUEST_COMMAND) {
       return res.send(
         requestTaskModal(taskCommand)
       );
@@ -28,7 +28,7 @@ export async function taskCommandHandler(req, res) {
     );
   }
   // No task requests inside threads/tasks
-  if (taskCommand === taskCommandChoices[0].value) {
+  if (taskCommand === TASK_REQUEST_COMMAND) {
     return res.send(
       ephemeralTextResponese(`${ICON_WARNING} Kreiranje novih taskova nije moguće u tredovima, samo u kanalima (kanali su skupovi tredova, tredovi su taskovi)!\n${ICON_INFO} Ako želiš da kreiraš novi task probaj \`/task do 🟡 Request\` u <#${channel.parent_id}> ili nekom drugom kanalu.`)
     );
@@ -52,6 +52,13 @@ export async function taskCommandHandler(req, res) {
     return res.send(
       ephemeralTextResponese(`${ICON_BUG} [error] Pošlo po zlu: ${err.message || err}`)
     );
+  }
+  // close task command?
+  if (taskCommand === TASK_CLOSE_COMMAND) {
+    // archive thread after 1 second to avoid weird error
+    setTimeout(() => {
+      DiscordRequest(endpoint, { method: 'PATCH', body: { archived: true } });
+    }, 1000);
   }
   return res.send(
     simpleTextResponese(`${ICON_SUCCESS} [status][${taskCommandIcons[taskCommand] || 'unknown'}] ${taskCommand}`)

@@ -6,6 +6,9 @@ export const TASK = 'task';
 export const QR = 'qr';
 export const TEMA = 'tema';
 
+export const TASK_REQUEST_COMMAND = '🟡';
+export const TASK_CLOSE_COMMAND = '🟢';
+
 // Task command choices
 export const taskCommandChoices = [
   { 'name': '🟡 Request', 'value': '🟡' },
