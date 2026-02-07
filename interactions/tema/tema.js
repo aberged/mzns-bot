@@ -1,4 +1,4 @@
-import { ICON_SUCCESS, ICON_WARNING } from '../../commands.js';
+import { ICON_BUG, ICON_SUCCESS, ICON_WARNING, TEMA_ICON } from '../../commands.js';
 import { ephemeralTextResponese } from '../../responses.js';
 import { DiscordRequest } from '../../utils.js';
 
