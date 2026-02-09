@@ -1,3 +1,4 @@
+import { InteractionResponseType } from 'discord-interactions';
 import { ICON_BUG, ICON_INFO, ICON_SUCCESS, ICON_WARNING, TASK_CLOSE_COMMAND, TASK_REQUEST_COMMAND, taskCommandIcons, TEMA_ICON } from '../../commands.js';
 import { ephemeralTextResponese, requestTaskModal, simpleTextResponese } from '../../responses.js';
 import { DiscordRequest } from '../../utils.js';
@@ -46,7 +47,11 @@ export async function taskCommandHandler(req, res) {
 
   const endpoint = `channels/${channel.id}`;
   try {
-    await DiscordRequest(endpoint, { method: 'PATCH', body: { name: taskCommand + ' ' + taskName } });
+    DiscordRequest(endpoint, { method: 'PATCH', body: { name: taskCommand + ' ' + taskName } }, 
+      req.body.token,
+      `${ICON_SUCCESS} [status][${taskCommandIcons[taskCommand] || 'unknown'}] ${taskCommand}`,
+      channel.id
+    );
   } catch (err) {
     console.error('Error updating channel name:', err);
     return res.send(
@@ -61,6 +66,6 @@ export async function taskCommandHandler(req, res) {
     }, 1000);
   }
   return res.send(
-    simpleTextResponese(`${ICON_SUCCESS} [status][${taskCommandIcons[taskCommand] || 'unknown'}] ${taskCommand}`)
+    simpleTextResponese(`${ICON_SUCCESS} [status][${taskCommandIcons[taskCommand] || 'unknown'}] ${taskCommand}`, InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE)
   );
 }

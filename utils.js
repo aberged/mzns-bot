@@ -1,27 +1,53 @@
 import 'dotenv/config';
 
-export async function DiscordRequest(endpoint, options) {
+const DISCORD_URL = 'https://discord.com/api/v10/';
+
+export async function DiscordRequest(endpoint, options, interactionToken = null, msg = '✅Done', channelId) {
   // append endpoint to root API URL
-  const url = 'https://discord.com/api/v10/' + endpoint;
+  const url = DISCORD_URL + endpoint;
   // Stringify payloads
   if (options.body) options.body = JSON.stringify(options.body);
-  // Use fetch to make requests
-  const res = await fetch(url, {
-    headers: {
-      Authorization: `Bot ${process.env.DISCORD_TOKEN}`,
-      'Content-Type': 'application/json; charset=UTF-8',
-      'User-Agent': 'mzns-tm 0.0.1',
-    },
-    ...options
-  });
-  // throw API errors
-  if (!res.ok) {
-    const data = await res.json();
-    console.log(res.status, endpoint, res, data);
-    throw new Error(JSON.stringify(data));
+
+  // retry logic to handle resource rate limit errors (status 429)
+  while (true) {
+    // Use fetch to make requests
+    const res = await fetch(url, {
+      headers: {
+        Authorization: `Bot ${process.env.DISCORD_TOKEN}`,
+        'Content-Type': 'application/json; charset=UTF-8',
+        'User-Agent': 'mzns-tm 0.0.1',
+      },
+      ...options
+    });
+    // throw API errors
+    if (!res.ok) {
+      const data = await res.json();
+      console.log(res.status, endpoint, data);
+      if (res.status === 429) {
+        const retryAfter = Number(res.headers.get('Retry-After')) * 1000;
+        console.warn(`Rate limited by Discord API. Retrying after ${retryAfter} ms...`);
+        // if interactionToken is present, send an ephemeral message to user that we are waiting due to rate limit
+        if (interactionToken) {
+          DiscordRequest(`channels/${channelId}/messages`, { 
+            method: 'POST', 
+            body: { 
+              content: `⏳ Bot mora sačekati ${retryAfter / 1000} sekundi zbog limita. Slobodno nastavi dalje...`, 
+              flags: 1 << 12 //SUPPRESS_NOTIFICATIONS	-	this message will not trigger push and desktop notifications
+            } 
+          });
+        }
+        await new Promise(r => setTimeout(r, retryAfter));
+      } else throw new Error(JSON.stringify(data));
+    }else {
+      if (interactionToken) {
+        await DiscordRequest(`webhooks/${process.env.APP_ID}/${interactionToken}/messages/@original`, {
+          method: 'PATCH',
+          body: { content: msg }
+        });
+      }
+      return res;
+    }
   }
-  // return original response
-  return res;
 }
 
 export async function InstallGlobalCommands(appId, commands, count = 0) {
