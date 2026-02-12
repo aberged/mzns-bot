@@ -7,14 +7,19 @@ import { ICON_BUG } from '../../commands.js';
 
 export async function qr(req, res) {
   const { data, channel } = req.body;
+  // Get text input values
+  const textToEncode = data.options.find(opt => opt.name === 'urltext')?.value || 'mzns qrcode';
+  const width = data.options.find(opt => opt.name === 'width')?.value || 600;
+  const darkcolor = data.options.find(opt => opt.name === 'darkcolor')?.value || '#000000FF';
+  const lightcolor = data.options.find(opt => opt.name === 'lightcolor')?.value || '#FFFFFFFF';
   try {
     const qr = await QRCode.toBuffer(
-      data.options[0].value, 
+      textToEncode, 
       { 
-        width: data.options.length > 1 ? data.options[1].value : 600, 
+        width: width, 
         color: { 
-          dark: data.options.length > 2 ? data.options[2].value : '#000000FF', 
-          light: data.options.length > 3 ? data.options[3].value : '#FFFFFFFF' 
+          dark: darkcolor, 
+          light: lightcolor 
         } 
       }
     );
