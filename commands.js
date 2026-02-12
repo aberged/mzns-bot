@@ -65,6 +65,24 @@ const QR_COMMAND = {
       name: 'urltext',
       description: ':url ili tekst',
       required: true,
+    },
+    {
+      type: 4,
+      name: 'width',
+      description: ':width (default 600px)',
+      required: false,
+    },
+    {
+      type: 3,
+      name: 'darkcolor', 
+      description: ':dark color in hex (default #000000FF)', 
+      required: false 
+    }, 
+    { 
+      type: 3, 
+      name: 'lightcolor', 
+      description: ':light color in hex (default #FFFFFFFF)', 
+      required: false,
     }
   ],
   type: 1,

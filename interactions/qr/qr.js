@@ -8,7 +8,16 @@ import { ICON_BUG } from '../../commands.js';
 export async function qr(req, res) {
   const { data, channel } = req.body;
   try {
-    const qr = await QRCode.toBuffer(data.options[0].value);
+    const qr = await QRCode.toBuffer(
+      data.options[0].value, 
+      { 
+        width: data.options.length > 1 ? data.options[1].value : 600, 
+        color: { 
+          dark: data.options.length > 2 ? data.options[2].value : '#000000FF', 
+          light: data.options.length > 3 ? data.options[3].value : '#FFFFFFFF' 
+        } 
+      }
+    );
     const attachment = new AttachmentBuilder(qr, { name: "qr.png", title: `QR code generated from ${data.options[0].value}` });
     const ch = await client.channels.fetch(channel.id);
     ch.send({ files: [attachment] }).then(() => {
