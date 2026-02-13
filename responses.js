@@ -10,7 +10,7 @@ export function simpleTextResponese(content, type = InteractionResponseType.CHAN
 export function ephemeralTextResponese(content, type = InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE) {
   return {
     type: type,
-    data: { flags: 1 << 6, content: content },
+    data: { flags: 1 << 6 },
   };
 }
 

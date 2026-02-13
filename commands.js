@@ -5,6 +5,7 @@ import { InstallGlobalCommands } from './utils.js';
 export const TASK = 'task';
 export const QR = 'qr';
 export const TEMA = 'tema';
+export const LEK = 'lek';
 
 export const TASK_REQUEST_COMMAND = '🟡';
 export const TASK_CLOSE_COMMAND = '🟢';
@@ -107,6 +108,29 @@ const TEMA_COMMAND = {
   contexts: [0, 2],
 };
 
-const ALL_COMMANDS = [TASK_COMMAND, QR_COMMAND, TEMA_COMMAND];
+// TEMA command definition
+const LEK_COMMAND = {
+  name: LEK,
+  description: 'LLM lektura',
+  options: [
+    {
+      type: 3,
+      name: 'tekst',
+      description: ':tekst za lekturu',
+      required: true,
+    },
+    {
+      type: 3,
+      name: 'stil',
+      description: ':stilska dorada',
+      required: false,
+    }
+  ],
+  type: 1,
+  integration_types: [0, 1],
+  contexts: [0, 2],
+};
+
+const ALL_COMMANDS = [TASK_COMMAND, QR_COMMAND, TEMA_COMMAND, LEK_COMMAND];
 
 InstallGlobalCommands(process.env.APP_ID, ALL_COMMANDS);

@@ -9,10 +9,11 @@ import {
 import { taskRequestModalHandler } from './interactions/task/taskRequestModalHandler.js';
 import { taskCommandHandler } from './interactions/task/taskCommandHandler.js';
 import { qr } from './interactions/qr/qr.js';
-import { QR, TASK, TEMA } from './commands.js';
+import { LEK, QR, TASK, TEMA } from './commands.js';
 import { TASK_MODAL_PREFIX } from './responses.js';
 import { tema } from './interactions/tema/tema.js';
 import { handleWelcomeRoleSelection, welcome, WELCOME_ROLE_SELECT_ID } from './welcome/welcome.js';
+import { lek } from './interactions/lek/lek.js';
 
 // Create an express app
 const app = express();
@@ -64,6 +65,8 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
           return qr(req, res);
         case TEMA:
           return tema(req, res);
+        case LEK:
+          return lek(req, res);
       }
       break;
     /**
