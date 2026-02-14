@@ -77,3 +77,11 @@ export function getRandomEmoji() {
 export function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+export function splitString(str, n) {
+    return str.split('').reduce((acc, char, index) => {
+        if (index % n === 0) acc.push('');
+        acc[acc.length - 1] += char;
+        return acc;
+    }, []);
+}

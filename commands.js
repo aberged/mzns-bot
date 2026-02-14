@@ -124,6 +124,16 @@ const LEK_COMMAND = {
       name: 'stil',
       description: ':stilska dorada',
       required: false,
+    },
+    {
+      type: 3,
+      name: 'pismo',
+      description: ':pismo',
+      required: false,
+      choices: [
+        { 'name': 'latinica', 'value': 'latinica' },
+        { 'name': 'ćirilica', 'value': 'cirilica' }
+      ],
     }
   ],
   type: 1,
