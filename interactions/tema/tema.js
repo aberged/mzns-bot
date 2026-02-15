@@ -1,6 +1,6 @@
 import { ICON_BUG, ICON_SUCCESS, ICON_WARNING, TEMA_ICON } from '../../commands.js';
 import { ephemeralTextResponese } from '../../responses.js';
-import { DiscordRequest } from '../../utils.js';
+import { AUTO_ARCHIVE_DURATION, DiscordRequest } from '../../utils.js';
 
 export async function tema(req, res) {
   // Interaction id, type, data, channel and member/user info
@@ -23,7 +23,7 @@ export async function tema(req, res) {
     const cretedThread = await DiscordRequest(endpoint, {
       method: 'POST', body: {
         name: TEMA_ICON + ' ' + temaName,
-        auto_archive_duration: 10080,
+        auto_archive_duration: AUTO_ARCHIVE_DURATION,
         type: 11, //Type 11 is for public threads
         rate_limit_per_user: 0
       }

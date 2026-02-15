@@ -1,7 +1,7 @@
 import { InteractionResponseType } from 'discord-interactions';
 import { ICON_BUG, ICON_INFO, ICON_SUCCESS, ICON_WARNING, TASK_CLOSE_COMMAND, TASK_REQUEST_COMMAND, taskCommandIcons, TEMA_ICON } from '../../commands.js';
 import { ephemeralTextResponese, requestTaskModal, simpleTextResponese } from '../../responses.js';
-import { DiscordRequest } from '../../utils.js';
+import { AUTO_ARCHIVE_DURATION, DiscordRequest } from '../../utils.js';
 
 export async function taskCommandHandler(req, res) {
   // Interaction data and channel
@@ -47,7 +47,7 @@ export async function taskCommandHandler(req, res) {
 
   const endpoint = `channels/${channel.id}`;
   try {
-    DiscordRequest(endpoint, { method: 'PATCH', body: { name: taskCommand + ' ' + taskName } }, 
+    DiscordRequest(endpoint, { method: 'PATCH', body: { name: taskCommand + ' ' + taskName, auto_archive_duration: AUTO_ARCHIVE_DURATION } }, 
       req.body.token,
       `${ICON_SUCCESS} [status][${taskCommandIcons[taskCommand] || 'unknown'}] ${taskCommand}`,
       channel.id
@@ -62,7 +62,7 @@ export async function taskCommandHandler(req, res) {
   if (taskCommand === TASK_CLOSE_COMMAND) {
     // archive thread after 1 second to avoid weird error
     setTimeout(() => {
-      DiscordRequest(endpoint, { method: 'PATCH', body: { archived: true } });
+      DiscordRequest(endpoint, { method: 'PATCH', body: { archived: true, auto_archive_duration: 60 } });
     }, 1000);
   }
   return res.send(

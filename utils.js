@@ -1,6 +1,7 @@
 import 'dotenv/config';
 
-const DISCORD_URL = 'https://discord.com/api/v10/';
+export const DISCORD_URL = 'https://discord.com/api/v10/';
+export const AUTO_ARCHIVE_DURATION = 10080;
 
 export async function DiscordRequest(endpoint, options, interactionToken = null, msg = '✅Done', channelId) {
   // append endpoint to root API URL
