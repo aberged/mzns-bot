@@ -8,6 +8,7 @@ export const TEMA = 'tema';
 export const LEK = 'lek';
 
 export const TASK_REQUEST_COMMAND = '🟡';
+export const URGENT_TASK_REQUEST_COMMAND = '‼️';
 export const TASK_CLOSE_COMMAND = '🟢';
 
 // Task command choices
@@ -17,7 +18,8 @@ export const taskCommandChoices = [
   { 'name': '🟠 In Production', 'value': '🟠' },
   { 'name': '🔴 Review', 'value': '🔴' },
   { 'name': '🟣 Scheduled', 'value': '🟣' },
-  { 'name': '🟢 Published', 'value': '🟢' }
+  { 'name': '🟢 Published', 'value': '🟢' },
+  { 'name': '‼️ HITNO', 'value': '‼️' }
 ];
 // Task command tags
 export const taskCommandIcons = {
@@ -27,6 +29,7 @@ export const taskCommandIcons = {
   '🔴': 'review',
   '🟣': 'scheduled',
   '🟢': 'published',
+  '‼️': 'urgent'
 };
 
 export const TEMA_ICON = '💬';

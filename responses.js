@@ -1,4 +1,5 @@
 import { InteractionResponseType, MessageComponentTypes } from "discord-interactions";
+import { URGENT_TASK_REQUEST_COMMAND } from "./commands.js";
 
 export function simpleTextResponese(content, type = InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE) {
   return {
@@ -53,7 +54,7 @@ export function requestTaskModal(taskCommand) {
             label: 'Assign role(s)',
             min_values: 1,
             max_values: 10,
-            required: true,
+            required: taskCommand !== URGENT_TASK_REQUEST_COMMAND, // make role select required for urgent task requests
           }
         },
         {

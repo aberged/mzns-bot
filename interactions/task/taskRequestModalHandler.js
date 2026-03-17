@@ -1,4 +1,4 @@
-import { ICON_BUG, ICON_SUCCESS } from '../../commands.js';
+import { ICON_BUG, ICON_SUCCESS, TASK_REQUEST_COMMAND, URGENT_TASK_REQUEST_COMMAND } from '../../commands.js';
 import { ephemeralTextResponese } from '../../responses.js';
 import { AUTO_ARCHIVE_DURATION, DiscordRequest } from '../../utils.js';
 
@@ -17,7 +17,8 @@ export async function taskRequestModalHandler(req, res) {
 
   // Get value of text inputs
   const textInputComponent = data.components.length > 0 ? data.components[0].components[0] : { value: 'No name task' };
-  const taskName = textInputComponent.value;
+  const urgentPrefix = taskCommand === URGENT_TASK_REQUEST_COMMAND ? URGENT_TASK_REQUEST_COMMAND+URGENT_TASK_REQUEST_COMMAND : '';
+  const taskName = urgentPrefix + textInputComponent.value + urgentPrefix;
 
   // Get values of role select and user select (if any)
   let mentions = '';
@@ -29,13 +30,16 @@ export async function taskRequestModalHandler(req, res) {
   if (userSelectComponent && userSelectComponent.values && userSelectComponent.values.length > 0) {
     mentions += userSelectComponent.values.map(v => `<@${v}>`).join(' ');
   }
+  if (taskCommand === URGENT_TASK_REQUEST_COMMAND) {
+    mentions = `<@&${process.env.EVERYONE_ROLE_ID}> ` + mentions;
+  }
 
   //create thread/task with the given name
   const endpoint = `channels/${channel.id}/threads`;
   try {
     const cretedThread = await DiscordRequest(endpoint, {
       method: 'POST', body: {
-        name: taskCommand + ' ' + taskName,
+        name: ( taskCommand === URGENT_TASK_REQUEST_COMMAND ? TASK_REQUEST_COMMAND : taskCommand ) + ' ' + taskName,
         auto_archive_duration: AUTO_ARCHIVE_DURATION,
         type: 11, //Type 11 is for public threads
         rate_limit_per_user: 0

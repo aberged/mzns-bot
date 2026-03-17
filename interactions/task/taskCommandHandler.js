@@ -1,5 +1,5 @@
 import { InteractionResponseType } from 'discord-interactions';
-import { ICON_BUG, ICON_INFO, ICON_SUCCESS, ICON_WARNING, TASK_CLOSE_COMMAND, TASK_REQUEST_COMMAND, taskCommandIcons, TEMA_ICON } from '../../commands.js';
+import { ICON_BUG, ICON_INFO, ICON_SUCCESS, ICON_WARNING, TASK_CLOSE_COMMAND, TASK_REQUEST_COMMAND, taskCommandIcons, TEMA_ICON, URGENT_TASK_REQUEST_COMMAND } from '../../commands.js';
 import { ephemeralTextResponese, requestTaskModal, simpleTextResponese } from '../../responses.js';
 import { AUTO_ARCHIVE_DURATION, DiscordRequest } from '../../utils.js';
 
@@ -18,7 +18,7 @@ export async function taskCommandHandler(req, res) {
   // Check if it's NOT a thread channel
   if (!channel.thread_metadata) {
     // Send a modal as response if the choice is "Request"
-    if (taskCommand === TASK_REQUEST_COMMAND) {
+    if (taskCommand === TASK_REQUEST_COMMAND || taskCommand === URGENT_TASK_REQUEST_COMMAND) {
       return res.send(
         requestTaskModal(taskCommand)
       );
@@ -29,7 +29,7 @@ export async function taskCommandHandler(req, res) {
     );
   }
   // No task requests inside threads/tasks
-  if (taskCommand === TASK_REQUEST_COMMAND) {
+  if (taskCommand === TASK_REQUEST_COMMAND || taskCommand === URGENT_TASK_REQUEST_COMMAND) {
     return res.send(
       ephemeralTextResponese(`${ICON_WARNING} Kreiranje novih taskova nije moguće u tredovima, samo u kanalima (kanali su skupovi tredova, tredovi su taskovi)!\n${ICON_INFO} Ako želiš da kreiraš novi task probaj \`/task do 🟡 Request\` u <#${channel.parent_id}> ili nekom drugom kanalu.`)
     );
