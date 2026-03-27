@@ -47,7 +47,7 @@ export function requestTaskModal(taskCommand) {
         {
           // Role select must be inside of an label component
           type: 18, // https://discord.com/developers/docs/components/reference#label
-          label: 'Assign role/s (optional)',
+          label: 'Assign role/s' + (taskCommand === URGENT_TASK_REQUEST_COMMAND ? '(optional)' : ''),
           component: {
             type: MessageComponentTypes.ROLE_SELECT,
             custom_id: 'my_role_select',
