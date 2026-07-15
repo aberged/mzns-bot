@@ -37,7 +37,7 @@ export async function lek(req, res) {
       },
       tools,
     };
-    const model = 'gemini-3-pro-preview';
+    const model = 'gemini-3.5-flash';
     const contents = [
       {
         role: 'user',
